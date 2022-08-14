@@ -1,12 +1,12 @@
-import { createContext, FC, useState } from "react";
+import { createContext, useState } from "react";
 import type { ReactNode } from "react";
 import type { TodoContext, Todo } from "./types";
 
 const defaultState = {
     todos: [] as Todo[],
     selected: -1,
-    addTodo: () => {},
-    removeTodo: () => {},
+    createTodo: () => {},
+    deleteTodo: () => {},
     updateTodo: () => {},
     setSelected: () => {}
 }
@@ -14,7 +14,8 @@ export const Todos = createContext<TodoContext>(defaultState)
 
 export default function TodosProvider({children}: { children: ReactNode }) {
     /*
-    Context tracking the todos and current selected todo
+    Context tracking the todos and current selected todo.
+    Selected todo is tracked by index for convenience.
     */
     const [todos, setTodos] = useState([
         {
@@ -31,9 +32,12 @@ export default function TodosProvider({children}: { children: ReactNode }) {
         }
     ] as Todo[]);
     const [selected, setSelected] = useState(defaultState.selected);
-    const addTodo = (todo: Todo) => {
+    // all state array updates are done by creating a new array
+    const createTodo = (todo: Todo) => {
+        setTodos([...todos, todo])
     }
-    const removeTodo = (todo: Todo) => {
+    const deleteTodo = (index: number) => {
+        setTodos([...todos.slice(0, index), ...todos.slice(index+1)])
     }
     const updateTodo = (todo: Todo, index: number) => {
         setTodos([...todos.slice(0, index), todo, ...todos.slice(index+1)])
@@ -44,8 +48,8 @@ export default function TodosProvider({children}: { children: ReactNode }) {
     return (
         <Todos.Provider value={{
             todos: todos,
-            addTodo: addTodo,
-            removeTodo: removeTodo,
+            createTodo: createTodo,
+            deleteTodo: deleteTodo,
             updateTodo: updateTodo,
             selected: selected, 
             setSelected: toggleSelected
