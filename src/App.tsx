@@ -5,7 +5,6 @@ import TodoListView from './TodoListView';
 import type { Todo } from './types';
 
 export default function App() {
-  const [search, setSearch] = useState("");
 
   return (
     <SelectedProvider>
