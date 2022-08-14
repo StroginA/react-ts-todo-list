@@ -3,12 +3,13 @@ import { Selected } from "./SelectedProvider";
 import { Todo } from "./types";
 
 export default function TodoListItem (props: {
-    element: Todo, 
+    element: Todo,
+    id: number 
 }) {
-    const {selected, setSelected} = useContext(Selected);
+    const {todos, selected, setSelected} = useContext(Selected);
 
     const selectElement = (e: React.MouseEvent) => {
-        setSelected(props.element);
+        setSelected(props.id);
     };
 
     return (
@@ -22,7 +23,7 @@ export default function TodoListItem (props: {
         props.element.status === 'done' ?
         'selectable-list__element_success' :
         ''}
-        ${props.element === selected ?
+        ${props.id === selected ?
         'selectable-list__element_selected' :
         ''}
         `}

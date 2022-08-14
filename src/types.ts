@@ -4,7 +4,11 @@ export interface Todo {
     status: "awaiting" | "inProgress" | "done";
 }
 
-export interface SelectedTodoContext {
-    selected: Todo | null;
-    setSelected: (todo: Todo | null) => void;
+export interface TodoContext {
+    todos: Todo[];
+    addTodo: (todo: Todo) => void;
+    removeTodo: (todo: Todo) => void;
+    updateTodo: (todo: Todo, index: number) => void;
+    selected: number;
+    setSelected: (id: number) => void;
 }

@@ -3,22 +3,21 @@ import {Selected} from "./SelectedProvider";
 import TodoListItem from "./TodoListItem";
 import type { Todo } from "./types";
 
-export default function TodoListView(props: {
-    todos: Todo[], 
-}) {
-    const {selected, setSelected} = useContext(Selected);  // Required for 'Create new' button
+export default function TodoListView() {
+    const {todos, selected, setSelected} = useContext(Selected);  // Required for 'Create new' button
 
-    const todoList = props.todos.map((element) => {
+    const todoList = todos.map((element) => {
         // Standard React list rendering
         return (
         <TodoListItem element={element} 
-        key={props.todos.indexOf(element)}/>
+        id={todos.indexOf(element)}
+        key={todos.indexOf(element)}/>
         );
     });
 
     const handleClickCreate = (e: React.MouseEvent) => {
         // Unselect all todos to render a 'new todo' form
-        setSelected(null);
+        setSelected(-1);
     }
 
     return (

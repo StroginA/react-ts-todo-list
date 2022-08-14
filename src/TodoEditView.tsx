@@ -1,21 +1,29 @@
 import { Todo } from "./types";
-import React, { ChangeEvent, useContext, useState } from "react";
+import React, { ChangeEvent, useContext, useState, useEffect } from "react";
 import { Selected } from "./SelectedProvider";
 
 export default function TodoEditView() {
-    const {selected, setSelected} = useContext(Selected);
-    const [title, setTitle] = useState(selected?.title || "");
+    const {todos, selected, updateTodo} = useContext(Selected);
+    const [title, setTitle] = useState("");
+
+    useEffect(() => {
+        /*
+        When another todo is selected, load new values into the fields
+        */
+        setTitle(todos[selected]?.title || "");
+    },[todos[selected]])
 
     const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value)
     }
 
     const handleUpdateTodo = (e: React.MouseEvent) => {
-        if (selected) {
-            setSelected({
+        if (todos[selected]) {
+            updateTodo({
                 title: title,
-                status: selected.status
-            });
+                description: todos[selected].description,
+                status: todos[selected].status
+            }, selected)
         }
     }
 
@@ -27,13 +35,15 @@ export default function TodoEditView() {
         <div className="column container__column column_edit">
             <input type="text" value={title} 
             onChange={handleChangeTitle}></input>
-            <button onClick={
-                selected ?
+            <button // Dynamic button for updating/creating new todo
+            className="btn btn_primary"
+            onClick={
+                todos[selected] ?
                 handleUpdateTodo :
                 handleCreateTodo
             }>
                 {
-                    selected ?
+                    todos[selected] ?
                     "Обновить..." :
                     "Создать..."
                 }
