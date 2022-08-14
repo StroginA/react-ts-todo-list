@@ -4,7 +4,7 @@ import TodoListItem from "./TodoListItem";
 import type { Todo } from "./types";
 
 export default function TodoListView() {
-    const {todos, selected, setSelected} = useContext(Todos);  // Required for 'Create new' button
+    const {todos, setSelected} = useContext(Todos);  // Required for 'Create new' button
     const [search, setSearch] = useState(""); 
 
     const searchFilter = (current: Todo) => {

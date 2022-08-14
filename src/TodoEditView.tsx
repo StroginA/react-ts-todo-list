@@ -32,7 +32,7 @@ export default function TodoEditView() {
     const handleUpdateTodo = (e: React.MouseEvent) => {
         /*
         Button should only be rendered with this handler if
-        selected is a valid index
+        'selected' is a valid index
         */
         updateTodo({
             title: title,
