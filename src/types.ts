@@ -1,6 +1,10 @@
 export interface Todo {
-    id: number
-    title: string
-    description: string
-    status: "awaiting" | "inProgress" | "done"
+    title: string;
+    description?: string;
+    status: "awaiting" | "inProgress" | "done";
+}
+
+export interface SelectedTodoContext {
+    selected: Todo | null;
+    setSelected: (todo: Todo | null) => void;
 }
