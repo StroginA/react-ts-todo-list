@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
-import {Selected} from "./SelectedProvider";
+import {Todos} from "./TodosProvider";
 import TodoListItem from "./TodoListItem";
 import type { Todo } from "./types";
 
 export default function TodoListView() {
-    const {todos, selected, setSelected} = useContext(Selected);  // Required for 'Create new' button
+    const {todos, selected, setSelected} = useContext(Todos);  // Required for 'Create new' button
 
     const todoList = todos.map((element) => {
         // Standard React list rendering
@@ -21,13 +21,13 @@ export default function TodoListView() {
     }
 
     return (
-        <div className="column container__column column_list">
-            <button className="btn btn_primary column__btn-create"
+        <div className="column container__column container__column_30 column-list">
+            <button className="btn btn_primary column-list__btn-create"
             onClick={handleClickCreate}>
                 Создать новую...
             </button>
             <input type="text" 
-            className="input column__input-search"
+            className="input column-list__input-search"
             placeholder="Поиск по заметкам"
             aria-placeholder="Поиск по заметкам"></input>
             <div className="selectable-list">

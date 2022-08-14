@@ -10,9 +10,9 @@ const defaultState = {
     updateTodo: () => {},
     setSelected: () => {}
 }
-export const Selected = createContext<TodoContext>(defaultState)
+export const Todos = createContext<TodoContext>(defaultState)
 
-export default function SelectedProvider({children}: { children: ReactNode }) {
+export default function TodosProvider({children}: { children: ReactNode }) {
     /*
     Context tracking the todos and current selected todo
     */
@@ -42,7 +42,7 @@ export default function SelectedProvider({children}: { children: ReactNode }) {
         setSelected(id);
     }
     return (
-        <Selected.Provider value={{
+        <Todos.Provider value={{
             todos: todos,
             addTodo: addTodo,
             removeTodo: removeTodo,
@@ -51,6 +51,6 @@ export default function SelectedProvider({children}: { children: ReactNode }) {
             setSelected: toggleSelected
             }}>
             {children}
-        </Selected.Provider>
+        </Todos.Provider>
     )
 }

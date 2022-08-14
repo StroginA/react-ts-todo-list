@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
-import { Selected } from "./SelectedProvider";
+import { Todos } from "./TodosProvider";
 import { Todo } from "./types";
 
 export default function TodoListItem (props: {
     element: Todo,
     id: number 
 }) {
-    const {todos, selected, setSelected} = useContext(Selected);
+    const {todos, selected, setSelected} = useContext(Todos);
 
     const selectElement = (e: React.MouseEvent) => {
         setSelected(props.id);
